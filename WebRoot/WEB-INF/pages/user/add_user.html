@@ -1,0 +1,66 @@
+
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="../user/toAdd.action" target="navTab"
+				disabled="true"><span>添加用户</span> </a>
+			</li>
+		</ul>
+	</div>
+	<form method="post" action="../user/userAdd.action"
+		class="pageForm required-validate"
+		onsubmit="return validateCallback(this, navTabAjaxDone);">
+
+		<div class="pageFormContent" layoutH="84"
+			style="width: 100%;text-align: center;float: left;margin-top: 20px">
+			<!-- 第一列 -->
+			<div style="width:45%;text-align: center;margin-left: 100px;">
+				<p>
+					<label>用户名:</label> <input name="username" type="text" size="30"
+						class="required" alt="请输入用户账号" value="ztj" />
+				</p>
+				<p>
+					<label>密 码:</label> <input name="password" type="text" size="30"
+						class="required" alt="请输入用户密码" value="zhang@366" />
+				</p>
+				<p>
+					<label>姓 名:</label> <input name="name" type="text" size="30"
+						class="required" alt="请输入用户密码" value="张铁君">
+				</p>
+				<p>
+					<label>电子邮箱:</label> <input name="email" type="text" size="30"
+						class="required" alt="请输入用户密码" value="ztj_5451@163.com" />
+				</p>
+
+			</div>
+
+		</div>
+
+
+		<!-- 底部保存、取消按钮 -->
+		<div class="formBar">
+
+			<ul>
+				<li><div class="buttonActive">
+						<div class="buttonContent">
+							<button type="submit">保存</button>
+						</div>
+					</div></li>
+				<li>
+					<div class="button">
+						<div class="buttonContent">
+							<button type="button" class="close">取消</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+
+
+		</div>
+
+	</form>
+</div>
+<script>
+	
+</script>

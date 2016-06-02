@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!--开发模式下使用，这样可以打印出更详细的错误信息 -->
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources" value="i18n" />
+	<!--每次Http请求到达时,是否重新加载资源文件 -->
+	<constant name="struts.i18n.reload" value="false" />
+	<!-- 设置在class被修改时是否热加载，发布时要设置为false -->
+	<constant name="struts.convention.classes.reload" value="false" />
+	<constant name="struts.convention.action.packages" value="com.yunrong.action" />
+	<constant name="struts.serve.static.browserCache" value="true" />
+	<!--与spring集成时，指定由spring负责action对象的创建 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 主题，将值设置为simple，即不使用UI模板。这将不会生成额外的html标签 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 编码方式 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 扩展名 -->
+	<constant name="struts.action.extension" value="action" />
+	<!-- 返回的视图资源路径 -->
+	<constant name="struts.convention.result.path" value="/jsp/" />
+	<!-- 视图资源分隔符 -->
+	<constant name="struts.convention.action.name.separator"
+		value="_" />
+	<package name="basePackage" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginFailureInterceptor"
+				class="com.yunrong.interceptor.LoginFailureInterceptor">
+			</interceptor>
+			<interceptor-stack name="baseStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="debugging" />
+				<interceptor-ref name="scopedModelDriven" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="multiselect" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="actionMappingParams" />
+				<!-- 拦截进入管理页面请求动作 -->
+				<interceptor-ref name="loginFailureInterceptor">
+					<!-- 登录失败或调用 goLogin -->
+					<param name="includeMethods">goLogin</param>
+				</interceptor-ref>
+				<!-- 过滤的参数 -->
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*,.*\\u0023.*,.*\\x5Cu0023.*,.*\\x5cu0023.*</param>
+				</interceptor-ref>
+				<!-- 配置方法级别的校验 -->
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+					<param name="validateAnnotatedMethodOnly">true</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="baseStack" />
+	</package>
+	
+	<package name="login" extends="basePackage" namespace="/login">
+		<interceptors>
+			<interceptor-stack name="testStack">
+				<interceptor-ref name="baseStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="testStack" />
+	</package>
+	 
+</struts>    
